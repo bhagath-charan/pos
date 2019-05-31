@@ -1,30 +1,24 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="products">
+    <v-data-table :headers="headers" :items="pos.products">
       <template v-slot:items="props">
+        <td class="text-xs-right">{{ props.item.name }}</td>
+        <td class="text-xs-right">{{ props.item.gst }}</td>
         <td>
           <v-edit-dialog
-            :return-value.sync="props.item.name"
+            :return-value.sync="pos.quantity"
             lazy
             @save="save"
             @cancel="cancel"
             @open="open"
             @close="close"
           >
-            {{ props.item.name }}
+            {{pos.quantity}}
             <template v-slot:input>
-              <v-text-field
-                v-model="props.item.name"
-                :rules="[max25chars]"
-                label="Edit"
-                single-line
-                counter
-              ></v-text-field>
+              <v-text-field v-model="pos.quantity" label="Edit" single-line counter></v-text-field>
             </template>
           </v-edit-dialog>
         </td>
-        <td class="text-xs-right">{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.gst }}</td>
         <td class="text-xs-right">{{ props.item.price }}</td>
         <td class="justify-center layout">
           <v-icon small @click="deleteItem(props.item)">delete</v-icon>
@@ -48,11 +42,16 @@ export default {
         value: "name"
       },
       { text: "GST", value: "gst" },
+      { text: "Quantity", value: "quantity" },
       { text: "Price", value: "price" },
       { text: "Actions", value: "name", sortable: false }
     ],
-    products: [],
-    pos : {},
+    pos : {
+      customer : {},
+      products : [],
+      quantity : 0,
+      totalAmount : 0
+    },
     editedIndex: -1,
     editedItem: {
       name: "",
@@ -81,24 +80,24 @@ export default {
   created() {
     this.initialize();
     posEventBus.$on("selectedProduct", product => {
-      this.products.push(product);
+      this.pos.products.push(product);
     });
   },
 
   methods: {
     initialize() {
-      this.products = [];
+      this.pos.products = [];
     },
     editItem(item) {
-      this.editedIndex = this.products.indexOf(item);
+      this.editedIndex = this.pos.products.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.products.indexOf(item);
+      const index = this.pos.products.indexOf(item);
       confirm("Are you sure you want to delete this item?") &&
-        this.products.splice(index, 1);
+        this.pos.products.splice(index, 1);
     },
 
     close() {
@@ -111,9 +110,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.products[this.editedIndex], this.editedItem);
+        Object.assign(this.pos.products[this.editedIndex], this.editedItem);
       } else {
-        this.products.push(this.editedItem);
+        this.pos.products.push(this.editedItem);
       }
       this.close();
     }
