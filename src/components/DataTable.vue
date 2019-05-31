@@ -1,25 +1,18 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="pos.products">
+    <v-data-table :headers="headers" :items="pos.lineItems">
       <template v-slot:items="props">
-        <td>{{ props.item.name }}</td>
-        <td >{{ props.item.gst }}</td>
+        <td>{{ props.item.product.name }}</td>
+        <td>{{ props.item.product.gst }}</td>
         <td>
-          <v-edit-dialog
-            :return-value.sync="pos.quantity"
-            lazy
-            @save="save"
-            @cancel="cancel"
-            @open="open"
-            @close="close"
-          >
+          <v-edit-dialog :return-value.sync="props.item.quantity" lazy @click="editItem">
             {{pos.quantity}}
             <template v-slot:input>
-              <v-text-field v-model="pos.quantity" label="Edit" single-line counter></v-text-field>
+              <v-text-field v-model="props.item.quantity" label="Edit" single-line counter></v-text-field>
             </template>
           </v-edit-dialog>
         </td>
-        <td>{{ props.item.price }}</td>
+        <td>{{ props.item.product.price }}</td>
         <td>
           <v-icon small @click="deleteItem(props.item)">delete</v-icon>
         </td>
@@ -46,23 +39,20 @@ export default {
       { text: "Price", value: "price" },
       { text: "Actions", value: "name", sortable: false }
     ],
-    pos : {
-      customer : {},
-      products : [],
-      quantity : 0,
-      totalAmount : 0
+    pos: {
+      customer: {},
+      lineItems: [],
+      totalAmount: 0
+    },
+    lineItem: {
+      product: {},
+      quantity: 0,
+      discount: 0,
+      amount: 0
     },
     editedIndex: -1,
-    editedItem: {
-      name: "",
-      gst: 0,
-      price: 0
-    },
-    defaultItem: {
-      name: "",
-      gst: 0,
-      price: 0
-    }
+    editedItem: {},
+    defaultItem: {}
   }),
 
   computed: {
@@ -80,7 +70,8 @@ export default {
   created() {
     this.initialize();
     posEventBus.$on("selectedProduct", product => {
-      this.pos.products.push(product);
+      this.lineItem.product = product;
+      this.pos.lineItems.push(this.lineItem);
     });
   },
 
@@ -106,15 +97,6 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       }, 300);
-    },
-
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.pos.products[this.editedIndex], this.editedItem);
-      } else {
-        this.pos.products.push(this.editedItem);
-      }
-      this.close();
     }
   }
 };

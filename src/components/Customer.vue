@@ -63,8 +63,8 @@ export default {
     data(){
       return {
         newCustomer:{
-          name:null,
-          mobile:null
+          name:"",
+          mobile:""
         },
         dialog:false
       }

@@ -31,7 +31,7 @@
 <script>
 import DataTable from "../components/DataTable";
 import ProductList from "../components/ProductList";
-import Customer from '../components/Customer'
+import Customer from "../components/Customer";
 import axios from "axios";
 export default {
   name: "Posmain",
@@ -42,7 +42,8 @@ export default {
   },
   data() {
     return {
-      products: {}
+      products: {},
+      customers: {}
     };
   },
   methods: {
@@ -52,14 +53,15 @@ export default {
         .then(response => {
           this.products = response.data.products;
         })
-        .catch(error => alert("Error while fetching"));
+        .catch(error => alert("Error while fetching" + error));
     },
-    getCustomers(){
-      axios.get("http://localhost:8081/customers.json")
-          .then(response => {
-            this.customers = response.data.customers;
-          })
-          .catch(error => alert("Error while fetching customers"))
+    getCustomers() {
+      axios
+        .get("http://localhost:8081/customers.json")
+        .then(response => {
+          this.customers = response.data.customers;
+        })
+        .catch(error => alert("Error while fetching customers" + error));
     }
   },
   created() {
