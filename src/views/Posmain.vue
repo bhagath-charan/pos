@@ -17,7 +17,7 @@
         <v-card>
           <v-card-text>
             <div>
-              <ProductList v-bind:prodcutsList="products"></ProductList>
+              <ProductList v-bind:productsList="products"></ProductList>
             </div>
           </v-card-text>
         </v-card>
@@ -44,7 +44,7 @@ export default {
   methods: {
     getProducts() {
       axios
-        .get("http://localhost:8081/products.json")
+        .get("http://localhost:8080/products.json")
         .then(response => {
           this.products = response.data.products;
         })
