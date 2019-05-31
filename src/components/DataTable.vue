@@ -5,8 +5,8 @@
         <td>{{ props.item.product.name }}</td>
         <td>{{ props.item.product.gst }}</td>
         <td>
-          <v-edit-dialog :return-value.sync="props.item.quantity" lazy @click="editItem">
-            {{pos.quantity}}
+          <v-edit-dialog :return-value.sync="props.item.quantity">
+            {{props.item.quantity}}
             <template v-slot:input>
               <v-text-field v-model="props.item.quantity" label="Edit" single-line counter></v-text-field>
             </template>
@@ -51,15 +51,7 @@ export default {
       amount: 0
     },
     editedIndex: -1,
-    editedItem: {},
-    defaultItem: {}
   }),
-
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    }
-  },
 
   watch: {
     dialog(val) {
@@ -68,33 +60,29 @@ export default {
   },
 
   created() {
-    this.initialize();
     posEventBus.$on("selectedProduct", product => {
       this.lineItem.product = product;
       this.pos.lineItems.push(this.lineItem);
+      this.lineItem = {
+        product: {},
+        quantity: 0,
+        discount: 0,
+        amount: 0
+      };
     });
   },
 
   methods: {
-    initialize() {
-      this.pos.products = [];
-    },
-    editItem(item) {
-      this.editedIndex = this.pos.products.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
-
     deleteItem(item) {
-      const index = this.pos.products.indexOf(item);
+      const index = this.pos.lineItems.indexOf(item);
       confirm("Are you sure you want to delete this item?") &&
-        this.pos.products.splice(index, 1);
+        this.pos.lineItems.splice(index, 1);
     },
 
     close() {
       this.dialog = false;
       setTimeout(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
+        this.lineItem = Object.assign({}, this.lineItem);
         this.editedIndex = -1;
       }, 300);
     }
