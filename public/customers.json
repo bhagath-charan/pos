@@ -1,0 +1,20 @@
+{
+    "customers" : [
+        {
+            "name": "Mounika",
+            "mobile": 9523689654
+        },{
+            "name": "Sowjanya",
+            "mobile": 9523687654
+        },{
+            "name": "Vijaya",
+            "mobile": 9523689654
+        },{
+            "name": "chandrika",
+            "mobile": 9520368777
+        },{
+            "name": "bhagath",
+            "mobile": 9523696666
+        }
+    ]
+}

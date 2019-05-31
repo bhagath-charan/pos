@@ -1,9 +1,6 @@
 <template>
   <v-layout row>
     <v-flex>
-      <v-card>
-
-
         <v-flex xs12 sm6 md12>
             <v-text-field
             v-model="search"
@@ -37,7 +34,6 @@
             </v-list-tile-action>
           </v-list-tile>
         </v-list>
-      </v-card>
     </v-flex>
   </v-layout>
 </template>
@@ -59,7 +55,6 @@ export default {
   methods: {
     selectedProduct(product) {
       posEventBus.$emit("selectedProduct", product);
-      alert(product.name + " is selected ");
     },
     filterResults() {
         this.results = this.productsList.filter(product => product.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1);

@@ -2,8 +2,8 @@
   <div>
     <v-data-table :headers="headers" :items="pos.products">
       <template v-slot:items="props">
-        <td class="text-xs-right">{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.gst }}</td>
+        <td>{{ props.item.name }}</td>
+        <td >{{ props.item.gst }}</td>
         <td>
           <v-edit-dialog
             :return-value.sync="pos.quantity"
@@ -19,8 +19,8 @@
             </template>
           </v-edit-dialog>
         </td>
-        <td class="text-xs-right">{{ props.item.price }}</td>
-        <td class="justify-center layout">
+        <td>{{ props.item.price }}</td>
+        <td>
           <v-icon small @click="deleteItem(props.item)">delete</v-icon>
         </td>
       </template>
