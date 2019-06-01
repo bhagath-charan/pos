@@ -11,17 +11,22 @@
         <td>{{ }}</td>
         <td>{{ }}</td>
         <td>
-          <v-edit-dialog :return-value.sync="props.item.quantity">
-            {{props.item.quantity}}
-            <template v-slot:input>
-              <v-text-field
-                v-model="props.item.quantity"
-                label="Edit"
-                single-line
-                counter
-                :on="calculateAmount(props.item, props.item.quantity)"
-              ></v-text-field>
+
+
+           <template>
+             <div class="quantity-toggle">
+             <button @click="decrement(props.item)">&mdash;</button>
+             <v-flex xs12 sm6 md3>
+             <v-text-field
+               v-model="props.item.quantity"
+               :on="calculateAmount(props.item, props.item.quantity)"
+             ></v-text-field>
+             </v-flex>
+              <button @click="increment(props.item)">&#xff0b;</button>
+             </div>
+
             </template>
+
           </v-edit-dialog>
         </td>
         <td>{{ props.item.product.mrp }}</td>
@@ -78,7 +83,7 @@ export default {
     },
     lineItem: {
       product: {},
-      quantity: 0,
+      quantity: 1,
       discount: 0,
       amount: 0
     },
@@ -97,7 +102,7 @@ export default {
       this.pos.lineItems.push(this.lineItem);
       this.lineItem = {
         product: {},
-        quantity: 0,
+        quantity: 1,
         discount: 0,
         amount: 0
       };
@@ -109,6 +114,17 @@ export default {
       const index = this.pos.lineItems.indexOf(item);
       confirm("Are you sure you want to delete this item?") &&
         this.pos.lineItems.splice(index, 1);
+    },
+
+    increment (item) {
+      item.quantity++
+    },
+    decrement (item) {
+      if(item.quantity === 1) {
+        alert('Negative quantity not allowed')
+      } else {
+          item.quantity--
+      }
     },
 
     close() {
@@ -131,3 +147,31 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+$border: 2px solid #ddd;
+
+.quantity-toggle {
+  display: flex;
+
+  input {
+    border: 0;
+    border-top: $border;
+    border-bottom: $border;
+    width: 2.5rem;
+    text-align: center;
+    padding: 0 .5rem;
+  }
+
+  button {
+    border: $border;
+    padding: .5rem;
+    background: #f5f5f5;
+    color: #888;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+}
+
+</style>

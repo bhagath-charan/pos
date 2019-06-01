@@ -55,6 +55,7 @@ export default {
           this.customers = response.data.customers;
         })
         .catch(error => alert("Error while fetching customers" + error));
+
     }
   },
   created() {
