@@ -47,13 +47,14 @@
     <v-toolbar flat color="white">
       <v-toolbar-title>Total Amount : {{ pos.totalAmount }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="secondary" class="mb-1" flat>Cancel</v-btn>
-      <v-btn color="secondary" class="mb-1" flat>Procced</v-btn>
+      <v-btn color="secondary" class="mb-1" flat @click="clearPos()">Cancel</v-btn>
+      <v-btn color="secondary" class="mb-1" flat @click="proceed(pos)">Procced</v-btn>
     </v-toolbar>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import { posEventBus } from "../main";
 
 export default {
@@ -62,20 +63,20 @@ export default {
     pagination: { rowsPerPage: 10 },
     dialog: false,
     headers: [
-    {
-      text: "Product Name",
-      align: "left",
-      sortable: false,
-      value: "name"
-    },
-    { text: "Batch no.", value: "batch" },
-    { text: "Exp Date", value: "expDate" },
-    { text: "Quantity", value: "quantity" },
-    { text: "MRP", value: "mrp" },
-    { text: "discount %", value: "discount" },
-    { text: "amount", value: "amount" },
-    { text: "Actions", value: "name", sortable: false }
-  ],
+      {
+        text: "Product Name",
+        align: "left",
+        sortable: false,
+        value: "name"
+      },
+      { text: "Batch no.", value: "batch" },
+      { text: "Exp Date", value: "expDate" },
+      { text: "Quantity", value: "quantity" },
+      { text: "MRP", value: "mrp" },
+      { text: "discount %", value: "discount" },
+      { text: "amount", value: "amount" },
+      { text: "Actions", value: "name", sortable: false }
+    ],
     pos: {
       customer: {},
       lineItems: [],
@@ -135,6 +136,26 @@ export default {
       }, 300);
     },
 
+    clearPos() {
+      this.dialog = false;
+      setTimeout(() => {
+        this.pos = Object.assign(
+          {},
+          {
+            customer: {},
+            lineItems: [],
+            totalAmount: 0
+          }
+        );
+      }, 300);
+    },
+
+    netTotal() {
+      this.pos.totalAmount = this.pos.lineItems
+        .map(e => e.amount)
+        .reduce((prev, next) => prev + next);
+    },
+
     calculateAmount(item, value) {
       const index = this.pos.lineItems.indexOf(item);
 
@@ -143,6 +164,16 @@ export default {
       let discountAmount = (amount * this.pos.lineItems[index].discount) / 100;
 
       this.pos.lineItems[index].amount = amount - discountAmount;
+
+      this.netTotal();
+    },
+
+    proceed(data) {
+      //change the get to post
+      axios
+        .get("https://yesno.wtf/api")
+        .then(this.clearPos())
+        .catch(error => alert("Error ocurred" + error));
     }
   }
 };
