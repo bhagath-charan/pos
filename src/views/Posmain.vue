@@ -1,15 +1,19 @@
 <template>
   <v-container fluid>
-    <v-layout row>
-      <v-flex grow pa-1>
-        <h2>Customer details</h2>
-        <Customer :customers="customers"/>
+    <v-layout row wrap>
+      <v-flex>
         <v-card>
+          <h2>Customer details</h2>
+          <Customer :customers="customers"/>
+        </v-card>
+      </v-flex>
+      <v-flex pa-1>
+        <v-card height="100%">
           <DataTable></DataTable>
         </v-card>
       </v-flex>
       <v-flex shrink pa-1>
-        <v-card>
+        <v-card height="450px">
           <v-card-text>
             <div>
               <ProductList v-bind:productsList="products"></ProductList>
@@ -42,7 +46,7 @@ export default {
   methods: {
     getProducts() {
       axios
-        .get("http://localhost:8080/products.json")
+        .get("http://localhost:8081/products.json")
         .then(response => {
           this.products = response.data.products;
         })
@@ -50,12 +54,11 @@ export default {
     },
     getCustomers() {
       axios
-        .get("http://localhost:8080/customers.json")
+        .get("http://localhost:8081/customers.json")
         .then(response => {
           this.customers = response.data.customers;
         })
         .catch(error => alert("Error while fetching customers" + error));
-
     }
   },
   created() {

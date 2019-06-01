@@ -5,28 +5,30 @@
       <v-divider class="mx-2" inset vertical></v-divider>
     </v-toolbar>
 
-    <v-data-table :headers="headers" :items="pos.lineItems" :pagination.sync="pagination">
+    <v-data-table
+      class="scroll-y"
+      :headers="headers"
+      :items="pos.lineItems"
+      :pagination.sync="pagination"
+    >
       <template v-slot:items="props">
         <td>{{ props.item.product.name }}</td>
         <td>{{ }}</td>
         <td>{{ }}</td>
         <td>
-
-
-           <template>
-             <div class="quantity-toggle">
-             <button @click="decrement(props.item)">&mdash;</button>
-             <v-flex xs12 sm6 md3>
-             <v-text-field
-               v-model="props.item.quantity"
-               :on="calculateAmount(props.item, props.item.quantity)"
-             ></v-text-field>
-             </v-flex>
-              <button @click="increment(props.item)">&#xff0b;</button>
-             </div>
-
+          <v-edit-dialog>
+            <template>
+              <div class="quantity-toggle">
+                <button @click="decrement(props.item)">&mdash;</button>
+                <v-flex xs12 sm6 md3>
+                  <v-text-field
+                    v-model="props.item.quantity"
+                    :on="calculateAmount(props.item, props.item.quantity)"
+                  ></v-text-field>
+                </v-flex>
+                <button @click="increment(props.item)">&#xff0b;</button>
+              </div>
             </template>
-
           </v-edit-dialog>
         </td>
         <td>{{ props.item.product.mrp }}</td>
@@ -117,14 +119,14 @@ export default {
         this.pos.lineItems.splice(index, 1);
     },
 
-    increment (item) {
-      item.quantity++
+    increment(item) {
+      item.quantity++;
     },
-    decrement (item) {
-      if(item.quantity === 1) {
-        alert('Negative quantity not allowed')
+    decrement(item) {
+      if (item.quantity === 1) {
+        alert("Negative quantity not allowed");
       } else {
-          item.quantity--
+        item.quantity--;
       }
     },
 
@@ -180,7 +182,6 @@ export default {
 </script>
 
 <style scoped>
-
 $border: 2px solid #ddd;
 
 .quantity-toggle {
@@ -192,17 +193,16 @@ $border: 2px solid #ddd;
     border-bottom: $border;
     width: 2.5rem;
     text-align: center;
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
   }
 
   button {
     border: $border;
-    padding: .5rem;
+    padding: 0.5rem;
     background: #f5f5f5;
     color: #888;
     font-size: 1rem;
     cursor: pointer;
   }
 }
-
 </style>
