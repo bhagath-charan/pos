@@ -53,7 +53,7 @@ export default {
     PosMain
   },
   data: () => ({
-      drawer: null
+      drawer: false
     })
 };
 </script>

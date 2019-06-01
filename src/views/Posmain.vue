@@ -5,14 +5,7 @@
         <h2>Customer details</h2>
         <Customer :customers="customers"/>
         <v-card>
-          <v-card-title secondary-title>
-            <h3 class="headline">CART</h3>
-          </v-card-title>
-          <v-card-text>
-            <div>
-              <DataTable></DataTable>
-            </div>
-          </v-card-text>
+          <DataTable></DataTable>
         </v-card>
       </v-flex>
       <v-flex shrink pa-1>
@@ -57,7 +50,7 @@ export default {
     },
     getCustomers() {
       axios
-        .get("http://localhost:8081/customers.json")
+        .get("http://localhost:8080/customers.json")
         .then(response => {
           this.customers = response.data.customers;
         })

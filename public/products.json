@@ -3,27 +3,27 @@
     {
       "name" : "ANTEN-25mg",
       "gst"  : 25,
-      "price" : 100
+      "mrp" : 100
     },
     {
       "name" : "CAPRISCION",
       "gst"  : 10,
-      "price" : 200
+      "mrp" : 200
     },
     {
       "name" : "RANBAXY-10MG",
       "gst"  : 20,
-      "price" : 300
+      "mrp" : 300
     },
     {
       "name" : "STETHSCOPE",
       "gst"  : 30,
-      "price" : 400
+      "mrp" : 400
     },
     {
       "name" : "TENDENTON",
       "gst"  : 40,
-      "price" : 500
+      "mrp" : 500
     }
   ]
 }
