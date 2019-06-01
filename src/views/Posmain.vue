@@ -49,7 +49,7 @@ export default {
   methods: {
     getProducts() {
       axios
-        .get("http://localhost:8081/products.json")
+        .get("http://localhost:8080/products.json")
         .then(response => {
           this.products = response.data.products;
         })
