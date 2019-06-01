@@ -1,20 +1,40 @@
 {
     "customers" : [
         {
-            "name": "Mounika",
-            "mobile": 9523689654
-        },{
-            "name": "Sowjanya",
-            "mobile": 9523687654
-        },{
-            "name": "Vijaya",
-            "mobile": 9523689654
-        },{
-            "name": "chandrika",
-            "mobile": 9520368777
-        },{
-            "name": "bhagath",
-            "mobile": 9523696666
+            "title":"Ms",
+            "firstName": "Mounika",
+            "lastName": "arvapalli",
+            "dob":"15/08/1996",
+            "mobile": 9523689654,
+            "email": "MMMM@sdf.in"
+        }, {
+            "title":"Mr",
+            "firstName": "sfsdg",
+            "lastName": "rrhtttr",
+            "dob":"15/08/1996",
+            "mobile": 9696969696,
+            "email": "MMMM@sdf.in"
+        }, {
+            "title":"Ms",
+            "firstName": "dfbdfvd",
+            "lastName": "svfg",
+            "dob":"15/08/1996",
+            "mobile": 636363636363,
+            "email": "MMMM@sdf.in"
+        }, {
+            "title":"Ms",
+            "firstName": "yhtyhth",
+            "lastName": "gvrerfe",
+            "dob":"15/08/1996",
+            "mobile": 12585858125,
+            "email": "MMMM@sdf.in"
+        }, {
+            "title":"Ms",
+            "firstName": "fbvrgtrg",
+            "lastName": "tryrtht",
+            "dob":"15/08/1996",
+            "mobile": 4545471893,
+            "email": "MMMM@sdf.in"
         }
     ]
 }

@@ -1,7 +1,49 @@
 <template>
   <v-container fluid>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <v-layout row wrap>
       <v-flex>
+=======
+    
+    <v-layout wrap row>
+      <v-flex xs12>
+=======
+=======
+>>>>>>> Stashed changes
+    
+    <v-layout wrap row>
+      <v-flex xs12>
+        <v-card>
+          
+            <h4 class="customer">Customer Details</h4>
+          
+          <v-card-text>
+            <div>
+              <Customer :customers="customers"/>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex grow pa-1>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+        <v-card>
+          
+            <h4 class="customer">Customer Details</h4>
+          
+          <v-card-text>
+            <div>
+              <Customer :customers="customers"/>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex grow pa-1>
+>>>>>>> Stashed changes
         <v-card>
           <h2>Customer details</h2>
           <Customer :customers="customers"/>
@@ -63,6 +105,15 @@ export default {
   },
   created() {
     this.getProducts();
+    this.getCustomers();
   }
 };
 </script>
+<style>
+.customer{
+      font-size: 24px!important;
+    line-height: 32px!important;
+    padding-left: 15px;
+}
+</style>
+
