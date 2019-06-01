@@ -1,18 +1,5 @@
 <template>
-  <v-container fluid>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    <v-layout row wrap>
-      <v-flex>
-=======
-    
-    <v-layout wrap row>
-      <v-flex xs12>
-=======
-=======
->>>>>>> Stashed changes
-    
+  <v-container fluid>    
     <v-layout wrap row>
       <v-flex xs12>
         <v-card>
@@ -24,29 +11,6 @@
               <Customer :customers="customers"/>
             </div>
           </v-card-text>
-        </v-card>
-      </v-flex>
-      <v-flex grow pa-1>
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-        <v-card>
-          
-            <h4 class="customer">Customer Details</h4>
-          
-          <v-card-text>
-            <div>
-              <Customer :customers="customers"/>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-      <v-flex grow pa-1>
->>>>>>> Stashed changes
-        <v-card>
-          <h2>Customer details</h2>
-          <Customer :customers="customers"/>
         </v-card>
       </v-flex>
       <v-flex pa-1>
@@ -88,7 +52,7 @@ export default {
   methods: {
     getProducts() {
       axios
-        .get("http://localhost:8081/products.json")
+        .get("http://localhost:8080/products.json")
         .then(response => {
           this.products = response.data.products;
         })
@@ -96,7 +60,7 @@ export default {
     },
     getCustomers() {
       axios
-        .get("http://localhost:8081/customers.json")
+        .get("http://localhost:8080/customers.json")
         .then(response => {
           this.customers = response.data.customers;
         })
