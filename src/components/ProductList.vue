@@ -2,7 +2,7 @@
   <v-layout column justify-center align-center row>
     <v-flex>
       <v-text-field v-model="search" @input="onChange" label="Search Product" solo></v-text-field>
-      <v-list style="max-height: 350px" class="scroll-y" two-line subheader>
+      <v-list style="max-height: 600px" class="scroll-y" two-line subheader>
         <v-list-tile v-for="product in results" :key="product.name">
           <v-list-tile-content @click="selectedProduct(product)">
             <v-list-tile-title>{{ product.name }}</v-list-tile-title>

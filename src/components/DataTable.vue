@@ -16,18 +16,13 @@
         <td>{{ }}</td>
         <td>{{ }}</td>
         <td>
-          <v-edit-dialog>
-            <template>
-              <div class="quantity-toggle">
-                <button @click="decrement(props.item)">&mdash;</button>
-                <v-flex xs12 sm6 md3>
-                  <v-text-field
-                    v-model="props.item.quantity"
-                    :on="calculateAmount(props.item, props.item.quantity)"
-                  ></v-text-field>
-                </v-flex>
-                <button @click="increment(props.item)">&#xff0b;</button>
-              </div>
+          <v-edit-dialog :return-value.sync="props.item.quantity">
+            {{props.item.quantity}}
+            <template v-slot:input>
+              <v-text-field
+                v-model="props.item.quantity"
+                :on="calculateAmount(props.item, props.item.quantity)"
+              ></v-text-field>
             </template>
           </v-edit-dialog>
         </td>
@@ -49,7 +44,7 @@
     <v-toolbar flat color="white">
       <v-toolbar-title>Total Amount : {{ pos.totalAmount }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="secondary" class="mb-1" flat @click="clearPos()">Cancel</v-btn>
+      <v-btn color="secondary" class="mb-1" flat @click="clearPos()">Clear Cart</v-btn>
       <v-btn color="secondary" class="mb-1" flat @click="proceed(pos)">Procced</v-btn>
     </v-toolbar>
   </div>
@@ -180,29 +175,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-$border: 2px solid #ddd;
-
-.quantity-toggle {
-  display: flex;
-
-  input {
-    border: 0;
-    border-top: $border;
-    border-bottom: $border;
-    width: 2.5rem;
-    text-align: center;
-    padding: 0 0.5rem;
-  }
-
-  button {
-    border: $border;
-    padding: 0.5rem;
-    background: #f5f5f5;
-    color: #888;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-}
-</style>

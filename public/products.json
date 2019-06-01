@@ -1,54 +1,54 @@
 {
-  "products":[
+  "products": [
     {
-      "name" : "ANTEN-25mg",
-      "gst"  : 25,
-      "mrp" : 100
+      "name": "Proctid",
+      "gst": 25,
+      "mrp": 100
     },
     {
-      "name" : "CAPRISCION",
-      "gst"  : 10,
-      "mrp" : 200
+      "name": "CAPRISCION",
+      "gst": 10,
+      "mrp": 200
     },
     {
-      "name" : "RANBAXY-10MG",
-      "gst"  : 20,
-      "mrp" : 300
+      "name": "RANBAXY-100MG",
+      "gst": 20,
+      "mrp": 300
     },
     {
-      "name" : "STETHSCOPE",
-      "gst"  : 30,
-      "mrp" : 400
+      "name": "STETHSCOPE-2",
+      "gst": 30,
+      "mrp": 400
     },
     {
-      "name" : "TENDENTON",
-      "gst"  : 40,
-      "mrp" : 500
+      "name": "TENDENTON-45mg",
+      "gst": 40,
+      "mrp": 500
     },
     {
-      "name" : "ANTEN-25mg",
-      "gst"  : 25,
-      "mrp" : 100
+      "name": "ANTEN-25mg",
+      "gst": 25,
+      "mrp": 100
     },
     {
-      "name" : "CAPRISCION",
-      "gst"  : 10,
-      "mrp" : 200
+      "name": "Cold Syrup",
+      "gst": 10,
+      "mrp": 200
     },
     {
-      "name" : "RANBAXY-10MG",
-      "gst"  : 20,
-      "mrp" : 300
+      "name": "RANBAXY-10MG",
+      "gst": 20,
+      "mrp": 300
     },
     {
-      "name" : "STETHSCOPE",
-      "gst"  : 30,
-      "mrp" : 400
+      "name": "STETHSCOPE",
+      "gst": 30,
+      "mrp": 400
     },
     {
-      "name" : "TENDENTON",
-      "gst"  : 40,
-      "mrp" : 500
+      "name": "TENDENTON",
+      "gst": 40,
+      "mrp": 500
     }
   ]
 }

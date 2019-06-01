@@ -14,12 +14,12 @@
         </v-card>
       </v-flex>
       <v-flex pa-1>
-        <v-card height="100%">
+        <v-card>
           <DataTable></DataTable>
         </v-card>
       </v-flex>
       <v-flex shrink pa-1>
-        <v-card height="450px">
+        <v-card height="723px">
           <v-card-text>
             <div>
               <ProductList v-bind:productsList="products"></ProductList>
