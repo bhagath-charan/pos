@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    
+
     <v-flex>
       <div class="searchBox">
       <v-autocomplete
@@ -71,7 +71,7 @@
         <v-layout row wrap>
           <v-flex xs4><v-card-text> Name : {{select.firstName}}</v-card-text></v-flex>
           <v-flex xs4><v-card-text> Mobile :{{select.mobile }} </v-card-text></v-flex>
-          <v-flex xs4><v-card-text> E-mail  : {{select.email}}</v-card-text>  </v-flex>    
+          <v-flex xs4><v-card-text> E-mail  : {{select.email}}</v-card-text>  </v-flex>
         </v-layout>
       </v-card>
     </v-flex>
@@ -146,4 +146,3 @@ export default {
 }
 
 </style>
-

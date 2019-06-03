@@ -1,11 +1,9 @@
 <template>
-  <v-container fluid>    
+  <v-container fluid>
     <v-layout wrap row>
       <v-flex xs12>
         <v-card>
-          
-            <h4 class="customer">Customer Details</h4>
-          
+          <h4 class="customer">Customer Details</h4>
           <v-card-text>
             <div>
               <Customer :customers="customers"/>
@@ -36,6 +34,7 @@ import DataTable from "../components/DataTable";
 import ProductList from "../components/ProductList";
 import Customer from "../components/Customer";
 import axios from "axios";
+
 export default {
   name: "Posmain",
   components: {
@@ -73,11 +72,11 @@ export default {
   }
 };
 </script>
+
 <style>
 .customer{
-      font-size: 24px!important;
+    font-size: 24px!important;
     line-height: 32px!important;
     padding-left: 15px;
 }
 </style>
-

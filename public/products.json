@@ -1,7 +1,11 @@
 {
-  "products": [
-    {
-      "name": "Proctid",
+  "products": [{
+      "name": "ATENGEN-90mg",
+      "brand": "CONVEXTRON",
+      "category": "TAB",
+      "group": "H1",
+      "activrPharmaIngrediant": "ACTETINOL",
+      "maxDiscountPercentage": 10,
       "gst": 25,
       "mrp": 100
     },

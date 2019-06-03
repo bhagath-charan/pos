@@ -9,7 +9,7 @@
       class="scroll-y"
       :headers="headers"
       :items="pos.lineItems"
-      :pagination.sync="pagination"
+      :pagination=false
     >
       <template v-slot:items="props">
         <td>{{ props.item.product.name }}</td>
