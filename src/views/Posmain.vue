@@ -2,12 +2,12 @@
   <v-container fluid>
     <v-layout wrap row>
       <v-flex xs12>
-        <v-card>
-          <h4 class="customer">Customer Details</h4>
+        <v-card elevation="0">
+            
           <v-card-text>
-            <div>
+            
               <Customer :customers="customers"/>
-            </div>
+            
           </v-card-text>
         </v-card>
       </v-flex>

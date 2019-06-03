@@ -117,6 +117,9 @@ export default {
         amount: 0
       };
     });
+    posEventBus.$on("add-customer",customer => {
+      this.pos.customer = customer
+    })
   },
 
   methods: {

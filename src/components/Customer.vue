@@ -1,90 +1,124 @@
 <template>
-  <v-layout>
-
-    <v-flex>
-      <div class="searchBox">
-      <v-autocomplete
-        v-model="select"
-        background-color="#afabab"
-        color="black"
-        :loading="loading"
-        :items="items"
-        return-object
-        item-text="mobile"
-        :search-input.sync="search"
-        cache-items
-        flat
-        no-data-text="No options"
-        hide-details
-        label="Search customer by mobile number"
-        solo-inverted
-      ></v-autocomplete>
-      <v-dialog v-model="dialog" persistent max-width="600px">
-        <template v-slot:activator="{ on }">
-          <v-btn title="Create Customer" class="addButton" color="#341552" dark small fab>
-            <v-icon v-on="on">add</v-icon>
-          </v-btn>
-        </template>
-        <v-card>
-          <v-card-title>
-            <span class="headline">Customer Profile</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-select
-                    v-model="newCustomer.title"
-                    :items="titles"
-                    label="title"
-                  ></v-select>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="newCustomer.firstName" label="First Name*" required></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="newCustomer.lastName" label="Last Name"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="newCustomer.dob" label="Date of Birth"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="newCustomer.email" label="E-mail"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="newCustomer.mobile" label="Mobile*" required></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-            <small>*indicates required field</small>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-            <v-btn color="blue darken-1" flat @click="createCustomer">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      </div>
-
-      <v-card class="data" elevation="0" max-width="50%">
-        <v-layout row wrap>
-          <v-flex xs4><v-card-text> Name : {{select.firstName}}</v-card-text></v-flex>
-          <v-flex xs4><v-card-text> Mobile :{{select.mobile }} </v-card-text></v-flex>
-          <v-flex xs4><v-card-text> E-mail  : {{select.email}}</v-card-text>  </v-flex>
-        </v-layout>
-      </v-card>
+  <v-layout row wrap>
+    <v-flex xs12>
+        <v-toolbar>
+            <v-toolbar-title class="headline">Customer Details</v-toolbar-title>
+            <v-spacer></v-spacer>           
+              <v-flex md3>
+                <v-autocomplete
+                  v-model="select"
+                  append-icon="search"
+                  background-color="#ffffff"
+                  :loading="loading"
+                  :items="items"
+                  return-object
+                  item-text="mobile"
+                  item-value="firstName"
+                  :search-input.sync="search"
+                  cache-items
+                  flat
+                  no-data-text="No options"
+                  hide-details
+                  label="Search customer by mobile number"
+                  solo
+                >
+                  <template v-slot:item="data">
+                    <template v-if="typeof data.item !== 'object'">
+                      <v-list-tile-content v-text="data.item"></v-list-tile-content>
+                    </template>
+                    <template v-else>
+                      <v-list-tile-content>
+                        <v-list-tile-title v-html="data.item.firstName"></v-list-tile-title>
+                        <v-list-tile-sub-title v-html="data.item.mobile"></v-list-tile-sub-title>
+                      </v-list-tile-content>
+                    </template>
+                  </template>
+                </v-autocomplete>
+              </v-flex>
+                <v-dialog v-model="dialog" persistent max-width="600px">
+                  <template v-slot:activator="{ on }">
+                    <v-btn title="Create Customer" color="#42a5f5" dark small fab>
+                      <v-icon v-on="on">add</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-card ref="form"
+                      v-model="valid"
+                      lazy-validation>
+                    <v-form>
+                    <v-card-title>
+                      <span class="headline">Customer Profile</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container grid-list-md>
+                        <v-layout wrap>
+                          <v-flex xs12 sm6 md4>
+                            <v-select
+                              v-model="newCustomer.title"
+                              :items="titles"
+                              label="title"
+                            ></v-select>
+                          </v-flex>
+                          <v-flex xs12 sm6 md4>
+                            <v-text-field v-model="newCustomer.firstName" :rules="formRules.firstNameRules" label="First Name*" required></v-text-field>
+                          </v-flex>
+                          <v-flex xs12 sm6 md4>
+                            <v-text-field v-model="newCustomer.lastName" label="Last Name"></v-text-field>
+                          </v-flex>
+                          <v-flex xs12 sm6 md4>
+                            <v-text-field v-model="newCustomer.dob" label="Date of Birth"></v-text-field>
+                          </v-flex>
+                          <v-flex xs12 sm6 md4>
+                            <v-text-field type="email" :rules="formRules.emailRules" v-model="newCustomer.email" label="E-mail"></v-text-field>
+                          </v-flex>
+                          <v-flex xs12 sm6 md4>
+                            <v-text-field type="number" :rules="formRules.mobileRules" v-model="newCustomer.mobile" label="Mobile*" required></v-text-field>
+                          </v-flex>
+                        </v-layout>
+                      </v-container>
+                      <small>*indicates required field</small>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="blue darken-1" flat @click="closeDialog">Close</v-btn>
+                      <v-btn color="blue darken-1" flat @click="createCustomer">Save</v-btn>
+                    </v-card-actions>
+                    </v-form>
+                  </v-card>
+              </v-dialog> 
+        </v-toolbar>
     </v-flex>
+      
+    <v-flex xs12>
+      <v-card elevation="0">
+        <v-card-text> 
+          <v-layout row>
+            
+            <h3>Name : &nbsp;</h3> <p class="data">{{select.firstName}}</p>
+            &nbsp;&nbsp;&nbsp;
+            <h3>Mobile : &nbsp;</h3> <p class="data">{{select.mobile }}</p>
+            
+          </v-layout>
+          <v-layout row>
+            <h3>E-mail  : &nbsp; </h3> <p class="data">{{select.email}}</p>
+            &nbsp;&nbsp;&nbsp;
+            <h3>Address : &nbsp; </h3> <p class="data">{{select.hasOwnProperty(address) ? select.address.addressLine1 : ''}}</p>
+          </v-layout>
+        </v-card-text>
+      </v-card>
+    </v-flex> 
   </v-layout>
+
 </template>
 
 <script>
 import axios from "axios";
+import { posEventBus } from "../main";
 export default {
   name: "Customer",
   props: ["customers"],
   data() {
     return {
+      valid:true,
       titles:['Mr','Ms',"Mrs"],
       newCustomer: {
         firstName: "",
@@ -93,6 +127,17 @@ export default {
         dob: "",
         email: "",
         mobile: ""
+      },
+      formRules:{
+        firstNameRules:[
+          v => !!v || 'First Name is required'
+        ],
+        emailRules:[
+          v => /.+@.+/.test(v) || 'E-mail must be valid'
+        ],
+        mobileRules:[
+          v => !!v || 'Mobile number is required'
+        ]
       },
       dialog: false,
       loading: false,
@@ -104,6 +149,10 @@ export default {
   watch: {
     search(val) {
       val && val !== this.select && this.filterCustomers(val);
+      this.items = []
+    },
+    select(){
+      posEventBus.$emit('add-customer',this.select)
     }
   },
   methods: {
@@ -114,8 +163,15 @@ export default {
           console.log(response.data.answer);
         })
         .catch(error => alert("Error while creating the customer"));
-      this.newCustomer.name = null;
-      this.newCustomer.mobile = null;
+        //this.$refs.form.reset()
+      this.newCustomer={
+        firstName: "",
+        lastName: "",
+        title: "",
+        dob: "",
+        email: "",
+        mobile: ""
+      }
       this.dialog = false;
     },
     filterCustomers(v) {
@@ -126,10 +182,17 @@ export default {
         });
         this.loading = false;
       }, 500);
-    },selectedCustomer() {
-      for (var i = 0; i < this.items.length; i++) {
-        console.log(this.items[i].mobile === this.select ? this.items[i] : {});
-        this.selectedCustomer1 =  this.items[i] && this.items[i].mobile === this.select ? this.items[i] : {};
+    },
+    closeDialog(){
+      this.dialog = false,
+      //this.$refs.form.reset()
+      this.newCustomer={
+        firstName: "",
+        lastName: "",
+        title: "",
+        dob: "",
+        email: "",
+        mobile: ""
       }
     }
   },
@@ -138,11 +201,10 @@ export default {
 
 <style>
 .data{
-  padding-top: 0px;
+  margin-top: 3px;
 }
-.searchBox {
-  width: 30%;
-  display: flex;
+.details{
+  padding: 0px;
 }
 
 </style>

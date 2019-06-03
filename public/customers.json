@@ -6,35 +6,85 @@
             "lastName": "arvapalli",
             "dob":"15/08/1996",
             "mobile": 9523689654,
-            "email": "MMMM@sdf.in"
+            "email": "MMMM@sdf.in",
+            "address":{
+                "addressLine1":"Road no.36",
+                "addressLine2": "Jubilihils",
+                "type":"BILLING",
+                "cityOrTown":"Hyderabad",
+                "district":"Hyderabad",
+                "state":"Telangana",
+                "country":"India",
+                "pincode":"500082"
+            }
         }, {
             "title":"Mr",
             "firstName": "sfsdg",
             "lastName": "rrhtttr",
             "dob":"15/08/1996",
             "mobile": 9696969696,
-            "email": "MMMM@sdf.in"
+            "email": "MMMM@sdf.in",
+            "address":{
+                "addressLine1":"Road no.36",
+                "addressLine2": "Jubilihils",
+                "type":"BILLING",
+                "cityOrTown":"Hyderabad",
+                "district":"Hyderabad",
+                "state":"Telangana",
+                "country":"India",
+                "pincode":"500082"
+            }
         }, {
             "title":"Ms",
             "firstName": "dfbdfvd",
             "lastName": "svfg",
             "dob":"15/08/1996",
             "mobile": 636363636363,
-            "email": "MMMM@sdf.in"
+            "email": "MMMM@sdf.in",
+            "address":{
+                "addressLine1":"Road no.36",
+                "addressLine2": "Jubilihils",
+                "type":"BILLING",
+                "cityOrTown":"Hyderabad",
+                "district":"Hyderabad",
+                "state":"Telangana",
+                "country":"India",
+                "pincode":"500082"
+            }
         }, {
             "title":"Ms",
             "firstName": "yhtyhth",
             "lastName": "gvrerfe",
             "dob":"15/08/1996",
             "mobile": 12585858125,
-            "email": "MMMM@sdf.in"
+            "email": "MMMM@sdf.in",
+            "address":{
+                "addressLine1":"Road no.36",
+                "addressLine2": "Jubilihils",
+                "type":"BILLING",
+                "cityOrTown":"Hyderabad",
+                "district":"Hyderabad",
+                "state":"Telangana",
+                "country":"India",
+                "pincode":"500082"
+            }
         }, {
             "title":"Ms",
             "firstName": "fbvrgtrg",
             "lastName": "tryrtht",
             "dob":"15/08/1996",
             "mobile": 4545471893,
-            "email": "MMMM@sdf.in"
+            "email": "MMMM@sdf.in",
+            "address":{
+                "addressLine1":"Road no.36",
+                "addressLine2": "Jubilihils",
+                "type":"BILLING",
+                "cityOrTown":"Hyderabad",
+                "district":"Hyderabad",
+                "state":"Telangana",
+                "country":"India",
+                "pincode":"500082"
+            }
         }
     ]
 }
