@@ -44,11 +44,24 @@
         </td>
       </template>
     </v-data-table>
-    <v-toolbar flat color="white">
-    <v-toolbar-title>Gross Amount:{{pos.GrossAmount}}</v-toolbar-title>
-    <v-toolbar-title>Discount:{{pos.totalDiscount}}</v-toolbar-title>
-    <v-toolbar-title>GST:{{pos.gst}}</v-toolbar-title>
-      <v-toolbar-title>Total Amount : {{ pos.totalAmount }}</v-toolbar-title>
+
+
+    <v-list>
+    <v-list-tile-content>
+      <v-list-tile-title class="text-lg-right">Gross Amount:{{pos.GrossAmount}}</v-list-tile-title>
+    </v-list-tile-content>
+    <v-list-tile-content>
+      <v-list-tile-title class="text-lg-right">Discount:{{pos.totalDiscount}}</v-list-tile-title>
+    </v-list-tile-content>
+    <v-list-tile-content>
+      <v-list-tile-title class="text-lg-right">GST:{{pos.gst}}</v-list-tile-title>
+    </v-list-tile-content>
+    <v-list-tile-content>
+      <v-list-tile-title class="text-lg-right">Total Amount : {{ pos.totalAmount }}</v-list-tile-title>
+    </v-list-tile-content>
+    <v-spacer></v-spacer>
+    </v-list>
+      <v-toolbar flat color="white">
       <v-spacer></v-spacer>
       <v-btn color="secondary" class="mb-1" flat @click="clearPos()">Clear Cart</v-btn>
       <v-btn color="secondary" class="mb-1" flat @click="proceed(pos)">Procced</v-btn>
@@ -59,7 +72,6 @@
 <script>
 import axios from "axios";
 import { posEventBus } from "../main";
-
 export default {
   name: "DataTable",
   data: () => ({
@@ -99,13 +111,11 @@ export default {
     },
     editedIndex: -1
   }),
-
   watch: {
     dialog(val) {
       val || this.close();
     }
   },
-
   created() {
     posEventBus.$on("selectedProduct", product => {
       this.lineItem.product = product;
@@ -121,14 +131,12 @@ export default {
       this.pos.customer = customer
     })
   },
-
   methods: {
     deleteItem(item) {
       const index = this.pos.lineItems.indexOf(item);
       confirm("Are you sure you want to delete this item?") &&
         this.pos.lineItems.splice(index, 1);
     },
-
     increment(item) {
       item.quantity++;
     },
@@ -139,7 +147,6 @@ export default {
         item.quantity--;
       }
     },
-
     close() {
       this.dialog = false;
       setTimeout(() => {
@@ -147,7 +154,6 @@ export default {
         this.editedIndex = -1;
       }, 300);
     },
-
     clearPos() {
       this.dialog = false;
       setTimeout(() => {
@@ -161,56 +167,41 @@ export default {
         );
       }, 300);
     },
-
     netTotal() {
       this.pos.totalAmount = this.pos.lineItems
         .map(e => e.amount)
         .reduce((prev, next) => prev + next);
     },
-
     gstTotal(){
     this.pos.gst = this.pos.lineItems
       .map(e => e.gst)
       .reduce((prev, next) =>prev + next);
     },
-
     grossAmount(){
     this.pos.GrossAmount = this.pos.lineItems
       .map(e => e.amount)
       .reduce((prev,next) => prev + next);
     },
-
     totalDiscount(){
     this.pos.totalDiscount = this.pos.lineItems
-        .map(e => e.discount)
+        .map(e => e.discountAmount)
         .reduce((prev,next) => prev + next);
     },
-
     calculateAmount(item, value) {
       const index = this.pos.lineItems.indexOf(item);
-
       let amount = value * this.pos.lineItems[index].product.mrp;
-
       let gst = amount * this.pos.lineItems[index].product.gst/100;
-
       console.log(gst);
-
       let discountAmount = (amount * this.pos.lineItems[index].discount) / 100;
-
       this.pos.lineItems[index].amount = (amount + gst) - discountAmount;
-
       this.pos.lineItems[index].amount = amount;
-
       this.pos.lineItems[index].gst = gst;
-
       this.pos.lineItems[index].discountAmount = discountAmount;
-
       this.netTotal();
       this.gstTotal();
       this.grossAmount();
       this.totalDiscount();
     },
-
     proceed(data) {
       //change the get to post
       axios
