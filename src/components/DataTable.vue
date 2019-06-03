@@ -13,29 +13,33 @@
     >
       <template v-slot:items="props">
         <td>{{ props.item.product.name }}</td>
-        <td>{{ }}</td>
+        <td>
+
+            <v-text-field  v-model="props.item.batch" ></v-text-field>
+
+        </td>
         <td>{{ }}</td>
 
         <td>
-          <v-edit-dialog :return-value.sync="props.item.quantity">
-            {{props.item.quantity}}
-            <template v-slot:input>
+
               <v-text-field
+                type="number"
                 v-model="props.item.quantity"
                 :on="calculateAmount(props.item, props.item.quantity)"
-              ></v-text-field>
-            </template>
-          </v-edit-dialog>
+              >
+              </v-text-field>
+
+
         </td>
         <td>{{ props.item.product.mrp }}</td>
         <td>{{props.item.product.gst}}</td>
         <td>
-          <v-edit-dialog :return-value.sync="props.item.discount">
-            {{props.item.discount}}
-            <template v-slot:input>
-              <v-text-field v-model="props.item.discount" label="Edit" single-line counter></v-text-field>
-            </template>
-          </v-edit-dialog>
+
+              <v-text-field
+               type="number"
+               v-model="props.item.discount"
+              ></v-text-field>
+
         </td>
         <td>{{( props.item.product.mrp * props.item.quantity * props.item.discount)/100}}</td>
         <td>{{ props.item.amount}}</td>
@@ -88,10 +92,10 @@ export default {
       { text: "Exp Date", value: "expDate" },
       { text: "Quantity", value: "quantity" },
       { text: "MRP", value: "mrp" },
-      {text: "GST%", value:"gst"},
+      {text: "GST%", value:"gst" },
       { text: "disc%", value: "discount" },
-      {text: "discAmount", value:"discountAmount"},
-      { text: "amount", value: "amount" },
+      {text: "discAmount", value:"discountAmount" },
+      { text: "amount", value: "amount"},
       { text: "Actions", value: "name", sortable: false }
     ],
     pos: {
