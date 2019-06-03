@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid>
-    <v-layout wrap row>
+  <v-container fluid grid-list-sm>
+    <v-layout row wrap>
       <v-flex xs12>
         <v-card elevation="0">
             
@@ -11,12 +11,17 @@
           </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex grow pa-1>
-          <DataTable></DataTable>
-      </v-flex>
-      <v-flex shrink pa-1>
-        <ProductList v-bind:productsList="products"></ProductList>
-      </v-flex>
+
+        <v-flex sm9 md9 lg9>
+          <v-card>
+            <DataTable></DataTable>
+          </v-card>
+        </v-flex>
+        <v-flex sm3 md3 lg3>
+          <ProductList v-bind:productsList="products"></ProductList>
+        </v-flex>
+
+
     </v-layout>
   </v-container>
 </template>

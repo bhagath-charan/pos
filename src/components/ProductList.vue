@@ -1,7 +1,6 @@
 <template>
   <div
     id="e3"
-    style="width: 300px; bottom-margin: 2px;"
     class="grey lighten-3"
   >
     <v-card>
