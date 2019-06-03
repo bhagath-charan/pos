@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12>
-        <v-toolbar>
+        <v-toolbar flat>
             <v-toolbar-title class="headline">Customer Details</v-toolbar-title>
             <v-spacer></v-spacer>           
               <v-flex md3>
@@ -37,8 +37,8 @@
               </v-flex>
                 <v-dialog v-model="dialog" persistent max-width="600px">
                   <template v-slot:activator="{ on }">
-                    <v-btn title="Create Customer" color="#42a5f5" dark small fab>
-                      <v-icon v-on="on">add</v-icon>
+                    <v-btn title="Create Customer" color="#42a5f5" small fab>
+                      <v-icon v-on="on">person_add</v-icon>
                     </v-btn>
                   </template>
                   <v-card ref="form"
@@ -56,22 +56,23 @@
                               v-model="newCustomer.title"
                               :items="titles"
                               label="title"
+                              outline
                             ></v-select>
                           </v-flex>
                           <v-flex xs12 sm6 md4>
-                            <v-text-field v-model="newCustomer.firstName" :rules="formRules.firstNameRules" label="First Name*" required></v-text-field>
+                            <v-text-field outline v-model="newCustomer.firstName" :rules="formRules.firstNameRules" label="First Name*" required></v-text-field>
                           </v-flex>
                           <v-flex xs12 sm6 md4>
-                            <v-text-field v-model="newCustomer.lastName" label="Last Name"></v-text-field>
+                            <v-text-field outline v-model="newCustomer.lastName" label="Last Name"></v-text-field>
                           </v-flex>
                           <v-flex xs12 sm6 md4>
-                            <v-text-field v-model="newCustomer.dob" label="Date of Birth"></v-text-field>
+                            <v-text-field outline v-model="newCustomer.dob" label="Date of Birth"></v-text-field>
                           </v-flex>
                           <v-flex xs12 sm6 md4>
-                            <v-text-field type="email" :rules="formRules.emailRules" v-model="newCustomer.email" label="E-mail"></v-text-field>
+                            <v-text-field outline type="email" :rules="formRules.emailRules" v-model="newCustomer.email" label="E-mail"></v-text-field>
                           </v-flex>
                           <v-flex xs12 sm6 md4>
-                            <v-text-field type="number" :rules="formRules.mobileRules" v-model="newCustomer.mobile" label="Mobile*" required></v-text-field>
+                            <v-text-field outline type="number" :rules="formRules.mobileRules" v-model="newCustomer.mobile" label="Mobile*" required></v-text-field>
                           </v-flex>
                         </v-layout>
                       </v-container>
@@ -88,22 +89,26 @@
         </v-toolbar>
     </v-flex>
       
-    <v-flex xs12>
+    <v-flex xs5>
       <v-card elevation="0">
+        <v-layout row>
         <v-card-text> 
-          <v-layout row>
+      
+            <h3 class="font-weight-regular"><b>Name :</b> &nbsp; {{select.firstName}}</h3>
             
-            <h3>Name : &nbsp;</h3> <p class="data">{{select.firstName}}</p>
-            &nbsp;&nbsp;&nbsp;
-            <h3>Mobile : &nbsp;</h3> <p class="data">{{select.mobile }}</p>
-            
-          </v-layout>
-          <v-layout row>
-            <h3>E-mail  : &nbsp; </h3> <p class="data">{{select.email}}</p>
-            &nbsp;&nbsp;&nbsp;
-            <h3>Address : &nbsp; </h3> <p class="data">{{select.hasOwnProperty(address) ? select.address.addressLine1 : ''}}</p>
-          </v-layout>
+            <h3 class="font-weight-regular"><b>Mobile :</b> &nbsp; {{select.mobile }}</h3>
+            <h3 class="font-weight-regular"><b>E-mail  :</b> &nbsp; {{select.email}} </h3>
+          
         </v-card-text>
+        <v-card-text>
+            <h3 class="font-weight-regular"><b>Address : </b>&nbsp;</h3>
+            <span> {{select.hasOwnProperty('address') ? select.address.addressLine1 : ''}}&nbsp;</span><br>
+            <span>{{select.hasOwnProperty('address') ? select.address.addressLine2 : ''}}&nbsp;</span><br>
+            <span>{{select.hasOwnProperty('address') ? select.address.cityOrTown : ''}}&nbsp;</span>
+            <span>{{select.hasOwnProperty('address') ? select.address.state : ''}}&nbsp;</span>
+          
+        </v-card-text>
+        </v-layout>
       </v-card>
     </v-flex> 
   </v-layout>
