@@ -6,10 +6,10 @@
     </v-toolbar>
 
     <v-data-table
-      class="scroll-y"
       :headers="headers"
       :items="pos.lineItems"
-      :pagination=false
+      hide-actions
+      expand
     >
       <template v-slot:items="props">
         <td>{{ props.item.product.name }}</td>

@@ -11,19 +11,11 @@
           </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex pa-1>
-        <v-card>
+      <v-flex grow pa-1>
           <DataTable></DataTable>
-        </v-card>
       </v-flex>
       <v-flex shrink pa-1>
-        <v-card height="723px">
-          <v-card-text>
-            <div>
-              <ProductList v-bind:productsList="products"></ProductList>
-            </div>
-          </v-card-text>
-        </v-card>
+        <ProductList v-bind:productsList="products"></ProductList>
       </v-flex>
     </v-layout>
   </v-container>
