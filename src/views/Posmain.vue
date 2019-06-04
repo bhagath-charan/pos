@@ -1,25 +1,20 @@
 <template>
   <v-container fluid grid-list-sm>
     <v-layout row wrap>
-      <v-flex xs6>
-        <Customer :customers="customers"/>
-      </v-flex>
-      <v-flex xs6>
-        <v-card>
+      <v-flex xs12>
+        <v-card elevation="0">
           <v-card-text>
-
+            <Customer :customers="customers"/>
           </v-card-text>
         </v-card>
       </v-flex>
-        <v-flex sm9 md9 lg9>
-          <v-card>
-            <DataTable></DataTable>
-          </v-card>
-        </v-flex>
-        <v-flex sm3 md3 lg3>
-          <ProductList v-bind:productsList="products"></ProductList>
-        </v-flex>
 
+      <v-card style="width:75%">
+        <DataTable></DataTable>
+      </v-card>
+      <v-card   style="width:25%">
+        <ProductList v-bind:productsList="products"></ProductList>
+      </v-card>
 
     </v-layout>
   </v-container>

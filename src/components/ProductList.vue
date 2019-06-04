@@ -1,13 +1,12 @@
 <template>
   <div
     id="e3"
-    class="grey lighten-3"
   >
-    <v-card>
-      <v-container padding="10px">
+
+      <v-container style="padding:10px;">
         <v-layout column>
           <v-text-field v-model="search" @input="onChange" label="Search Product" solo></v-text-field>
-          <v-list style="max-height: 600px" class="scroll-y" two-line subheader>
+          <v-list style="max-height: 550px" class="scroll-y" two-line subheader>
             <template v-for="(product, index) in results">
               <v-list-tile :key="index" avatar  ripple @click="">
 
@@ -42,7 +41,7 @@
           </v-list>
         </v-layout>
       </v-container>
-    </v-card>
+
   </div>
 </template>
 

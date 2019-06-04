@@ -170,6 +170,15 @@ export default {
             totalAmount: 0
           }
         );
+        this.calculated = Object.assign(
+          {},
+          {
+            GrossAmount:0,
+            totalDiscount:0,
+            discountAmount:0,
+            taxTotal:0
+          }
+        );
       }, 300);
     },
     netTotal() {
