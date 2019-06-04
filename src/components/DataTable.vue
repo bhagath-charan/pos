@@ -2,22 +2,21 @@
   <div>
     <v-toolbar flat color="white">
       <v-toolbar-title>CART</v-toolbar-title>
-      <v-divider class="mx-2" inset vertical></v-divider>
     </v-toolbar>
-
     <v-data-table
       :headers="headers"
       :items="pos.lineItems"
       hide-actions
       expand
     >
-      <template v-slot:items="props">
+      <template v-slot:items ="props">
         <td>{{ props.item.product.name }}</td>
         <td>
-            <v-text-field  v-model="props.item.product.batch" ></v-text-field>
+            <v-select
+                  v-model="props.item.product.batch"
+                   ></v-select>
         </td>
         <td>{{ }}</td>
-
            <td>
               <v-text-field
                 type="number"
@@ -29,12 +28,10 @@
         <td>{{ props.item.product.mrp }}</td>
         <td>{{props.item.product.gst}}</td>
         <td>
-
               <v-text-field
                type="number"
                v-model="props.item.discount"
               ></v-text-field>
-
         </td>
         <td>{{( props.item.product.mrp * props.item.quantity * props.item.discount)/100}}</td>
         <td>{{ props.item.amount}}</td>

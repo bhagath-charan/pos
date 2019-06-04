@@ -4,7 +4,7 @@
     <v-flex md3>
         <v-toolbar dense flat>
             <v-toolbar-title class="details">Customer</v-toolbar-title>
-            <v-spacer></v-spacer>           
+            <v-spacer></v-spacer>
               <v-flex md5>
                 <v-autocomplete
                   v-model="select"
@@ -75,7 +75,7 @@
                           <v-flex xs12 sm6 md3>
                             <v-text-field outline type="number" :rules="formRules.mobileRules" v-model="newCustomer.mobile" label="Mobile*" required></v-text-field>
                           </v-flex>
-                                                  
+
                         </v-layout>
                       </v-container>
                       <small>*indicates required field</small>
@@ -89,17 +89,16 @@
                   </v-card>
                 </v-dialog>
         </v-toolbar>
-      </v-flex>      
+      </v-flex>
       <v-flex xs5>
       <v-card elevation="0">
         <v-layout row>
-        <v-card-text> 
-      
-            <h3 class="font-weight-regular"><b>Name :</b> &nbsp; {{select.firstName}}</h3>
-            
+        <v-card-text>
+
+            <h3 class="font-weight-regular"><b>Name :</b> &nbsp; {{select.firstName}}</h3>  
             <h3 class="font-weight-regular"><b>Mobile :</b> &nbsp; {{select.mobile }}</h3>
             <h3 class="font-weight-regular"><b>E-mail  :</b> &nbsp; {{select.email}} </h3>
-          
+
         </v-card-text>
         <v-card-text>
             <h3 class="font-weight-regular"><b>Address : </b>&nbsp;</h3>
@@ -107,11 +106,11 @@
             <span>{{select.hasOwnProperty('address') ? select.address.addressLine2 : ''}}&nbsp;</span><br>
             <span>{{select.hasOwnProperty('address') ? select.address.cityOrTown : ''}}&nbsp;</span>
             <span>{{select.hasOwnProperty('address') ? select.address.state : ''}}&nbsp;</span>
-          
+
         </v-card-text>
         </v-layout>
       </v-card>
-    </v-flex> 
+    </v-flex>
   </v-layout>
 </v-card>
 </template>

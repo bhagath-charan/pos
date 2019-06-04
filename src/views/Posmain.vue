@@ -7,7 +7,6 @@
       <v-flex xs6>
         <ProductView></ProductView>
       </v-flex>
-
           <v-card style="width:75%">
             <DataTable></DataTable>
           </v-card>
