@@ -3,68 +3,93 @@
     <v-toolbar flat color="white">
       <v-toolbar-title>CART</v-toolbar-title>
     </v-toolbar>
-    <v-data-table
-      :headers="headers"
-      :items="pos.lineItems"
-      hide-actions
-      expand
-    >
-      <template v-slot:items ="props">
-        <td>{{ props.item.product.name }}</td>
+
+    <v-data-table :headers="headers" :items="pos.lineItems" hide-actions expand>
+      <template v-slot:items="props">
         <td>
-            <v-select
-                  v-model="props.item.product.batch"
-                   ></v-select>
+          {{ props.item.product.name }}
         </td>
-        <td>{{ }}</td>
-           <td>
-              <v-text-field
-                type="number"
-                v-model="props.item.quantity"
-                :on="calculateAmount(props.item, props.item.quantity)"
-              >
-              </v-text-field>
-        </td>
-        <td>{{ props.item.product.mrp }}</td>
-        <td>{{props.item.product.gst}}</td>
         <td>
-              <v-text-field
-               type="number"
-               v-model="props.item.discount"
-              ></v-text-field>
+          <v-text-field v-model="props.item.product.batch"></v-text-field>
         </td>
-        <td>{{( props.item.product.mrp * props.item.quantity * props.item.discount)/100}}</td>
-        <td>{{ props.item.amount}}</td>
+        <td>
+          {{}}
+        </td>
+        <td>
+          <v-text-field
+            type="number"
+            v-model="props.item.quantity"
+            :on="calculateAmount(props.item, props.item.quantity)"
+          >
+          </v-text-field>
+        </td>
+        <td>
+          {{ props.item.product.mrp }}
+        </td>
+        <td>
+          {{ props.item.product.gst }}
+        </td>
+        <td>
+          <v-text-field
+            type="number"
+            v-model="props.item.discount"
+          ></v-text-field>
+        </td>
+        <td>
+          {{
+            (props.item.product.mrp *
+              props.item.quantity *
+              props.item.discount) /
+              100
+          }}
+        </td>
+        <td>
+          {{ props.item.amount }}
+        </td>
         <td>
           <v-icon small @click="deleteItem(props.item)">delete</v-icon>
         </td>
       </template>
     </v-data-table>
 
-<v-flex xs11>
-    <v-list>
-    <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">Gross Amount :{{calculated.GrossAmount}}</v-list-tile-title>
-    </v-list-tile-content>
-    <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">Discount :{{calculated.totalDiscount}}</v-list-tile-title>
-    </v-list-tile-content>
-    <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">SGST :{{calculated.taxTotal/2}}</v-list-tile-title>
-    </v-list-tile-content>
-    <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">CGST :{{calculated.taxTotal/2}}</v-list-tile-title>
-    </v-list-tile-content>
-    <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">Net Payable :{{ pos.totalAmount }}</v-list-tile-title>
-    </v-list-tile-content>
-    <v-spacer></v-spacer>
-    </v-list>
+    <v-flex xs11>
+      <v-list>
+        <v-list-tile-content>
+          <v-list-tile-title class="text-lg-right"
+            >Gross Amount : {{ calculated.GrossAmount }}
+          </v-list-tile-title>
+        </v-list-tile-content>
+        <v-list-tile-content>
+          <v-list-tile-title class="text-lg-right"
+            >Discount : {{ calculated.totalDiscount }}
+          </v-list-tile-title>
+        </v-list-tile-content>
+        <v-list-tile-content>
+          <v-list-tile-title class="text-lg-right"
+            >SGST : {{ calculated.taxTotal / 2 }}
+          </v-list-tile-title>
+        </v-list-tile-content>
+        <v-list-tile-content>
+          <v-list-tile-title class="text-lg-right"
+            >CGST : {{ calculated.taxTotal / 2 }}
+          </v-list-tile-title>
+        </v-list-tile-content>
+        <v-list-tile-content>
+          <v-list-tile-title class="text-lg-right"
+            >Net Payable : {{ pos.totalAmount }}
+          </v-list-tile-title>
+        </v-list-tile-content>
+        <v-spacer></v-spacer>
+      </v-list>
     </v-flex>
-      <v-toolbar flat color="white">
+    <v-toolbar flat color="white">
       <v-spacer></v-spacer>
-      <v-btn color="secondary" class="mb-1" flat @click="clearPos()">Clear Cart</v-btn>
-      <v-btn color="secondary" class="mb-1" flat @click="proceed(pos)">Procced</v-btn>
+      <v-btn color="secondary" class="mb-1" flat @click="clearPos()"
+        >Clear Cart
+      </v-btn>
+      <v-btn color="secondary" class="mb-1" flat @click="proceed(pos)"
+        >Procced
+      </v-btn>
     </v-toolbar>
   </div>
 </template>
@@ -88,17 +113,17 @@ export default {
       { text: "Exp Date", value: "expDate" },
       { text: "Quantity", value: "quantity" },
       { text: "MRP", value: "mrp" },
-      {text: "GST%", value:"gst" },
+      { text: "GST%", value: "gst" },
       { text: "Disc%", value: "discount" },
-      {text: "DiscAmount", value:"discountAmount" },
-      { text: "Amount", value: "amount"},
+      { text: "DiscAmount", value: "discountAmount" },
+      { text: "Amount", value: "amount" },
       { text: "Actions", value: "name", sortable: false }
     ],
-    calculated:{
-      GrossAmount:0,
-      totalDiscount:0,
-      discountAmount:0,
-      taxTotal:0
+    calculated: {
+      GrossAmount: 0,
+      totalDiscount: 0,
+      discountAmount: 0,
+      taxTotal: 0
     },
     pos: {
       customer: {},
@@ -129,9 +154,9 @@ export default {
         amount: 0
       };
     });
-    posEventBus.$on("add-customer",customer => {
-      this.pos.customer = customer
-    })
+    posEventBus.$on("add-customer", customer => {
+      this.pos.customer = customer;
+    });
   },
   methods: {
     deleteItem(item) {
@@ -158,6 +183,7 @@ export default {
     },
     clearPos() {
       this.dialog = false;
+
       setTimeout(() => {
         this.pos = Object.assign(
           {},
@@ -167,6 +193,16 @@ export default {
             totalAmount: 0
           }
         );
+
+        this.calculated = Object.assign(
+          {},
+          {
+            GrossAmount: 0,
+            totalDiscount: 0,
+            discountAmount: 0,
+            taxTotal: 0
+          }
+        );
       }, 300);
     },
     netTotal() {
@@ -174,27 +210,27 @@ export default {
         .map(e => e.amount)
         .reduce((prev, next) => prev + next);
     },
-    tax(){
-    this.calculated.taxTotal = this.pos.lineItems
-      .map(e => e.product.mrp * e.quantity * e.product.gst/100)
-      .reduce((prev, next) => prev + next);
+    tax() {
+      this.calculated.taxTotal = this.pos.lineItems
+        .map(e => (e.product.mrp * e.quantity * e.product.gst) / 100)
+        .reduce((prev, next) => prev + next);
     },
-    grossAmount(){
-    this.calculated.GrossAmount = this.pos.lineItems
-      .map(e => e.product.mrp * e.quantity)
-      .reduce((prev,next) => prev + next);
+    grossAmount() {
+      this.calculated.GrossAmount = this.pos.lineItems
+        .map(e => e.product.mrp * e.quantity)
+        .reduce((prev, next) => prev + next);
     },
-    totalDiscount(){
-    this.calculated.totalDiscount = this.pos.lineItems
-        .map(e => e.product.mrp * e.quantity * e.discount/100)
-        .reduce((prev,next) => prev + next);
+    totalDiscount() {
+      this.calculated.totalDiscount = this.pos.lineItems
+        .map(e => (e.product.mrp * e.quantity * e.discount) / 100)
+        .reduce((prev, next) => prev + next);
     },
     calculateAmount(item, value) {
       const index = this.pos.lineItems.indexOf(item);
       let amount = value * this.pos.lineItems[index].product.mrp;
-      let tax = amount * this.pos.lineItems[index].product.gst/100;
+      let tax = amount * (this.pos.lineItems[index].product.gst / 100);
       let discountAmount = (amount * this.pos.lineItems[index].discount) / 100;
-      this.pos.lineItems[index].amount = (amount + tax) - discountAmount;
+      this.pos.lineItems[index].amount = amount + tax - discountAmount;
 
       this.netTotal();
       this.tax();
@@ -203,6 +239,7 @@ export default {
     },
     proceed(data) {
       //change the get to post
+      console.log(data);
       axios
         .get("https://yesno.wtf/api")
         .then(this.clearPos())
