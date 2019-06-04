@@ -40,7 +40,7 @@
     <v-content>
       <PosMain/>
     </v-content>
-    
+
   </v-app>
 </template>
 

@@ -49,22 +49,26 @@
       </template>
     </v-data-table>
 
-
+<v-flex xs11>
     <v-list>
     <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">Gross Amount:{{pos.GrossAmount}}</v-list-tile-title>
+      <v-list-tile-title class="text-lg-right">Gross Amount:{{calculated.GrossAmount}}</v-list-tile-title>
     </v-list-tile-content>
     <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">Discount:{{pos.totalDiscount}}</v-list-tile-title>
+      <v-list-tile-title class="text-lg-right">SGST:{{calculated.taxTotal/2}}</v-list-tile-title>
     </v-list-tile-content>
     <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">GST:{{pos.gst}}</v-list-tile-title>
+      <v-list-tile-title class="text-lg-right">CGST:{{calculated.taxTotal/2}}</v-list-tile-title>
     </v-list-tile-content>
     <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">Total Amount : {{ pos.totalAmount }}</v-list-tile-title>
+      <v-list-tile-title class="text-lg-right">Discount:{{calculated.totalDiscount}}</v-list-tile-title>
+    </v-list-tile-content>
+    <v-list-tile-content>
+      <v-list-tile-title class="text-lg-right">Total Amount :{{ pos.totalAmount }}</v-list-tile-title>
     </v-list-tile-content>
     <v-spacer></v-spacer>
     </v-list>
+    </v-flex>
       <v-toolbar flat color="white">
       <v-spacer></v-spacer>
       <v-btn color="secondary" class="mb-1" flat @click="clearPos()">Clear Cart</v-btn>
@@ -98,20 +102,22 @@ export default {
       { text: "amount", value: "amount"},
       { text: "Actions", value: "name", sortable: false }
     ],
+    calculated:{
+      GrossAmount:0,
+      totalDiscount:0,
+      discountAmount:0,
+      taxTotal:0
+    },
     pos: {
       customer: {},
       lineItems: [],
-      totalAmount: 0,
-      GrossAmount:0,
-      gst:0,
-      totalDiscount:0
+      totalAmount: 0
     },
     lineItem: {
       product: {},
       quantity: 1,
       discount: 0,
-      amount: 0,
-      gst:0
+      amount: 0
     },
     editedIndex: -1
   }),
@@ -176,33 +182,30 @@ export default {
         .map(e => e.amount)
         .reduce((prev, next) => prev + next);
     },
-    gstTotal(){
-    this.pos.gst = this.pos.lineItems
-      .map(e => e.gst)
-      .reduce((prev, next) =>prev + next);
+    tax(){
+    this.calculated.taxTotal = this.pos.lineItems
+      .map(e => e.product.mrp * e.quantity * e.product.gst/100)
+      .reduce((prev, next) => prev + next);
     },
     grossAmount(){
-    this.pos.GrossAmount = this.pos.lineItems
+    this.calculated.GrossAmount = this.pos.lineItems
       .map(e => e.amount)
       .reduce((prev,next) => prev + next);
     },
     totalDiscount(){
-    this.pos.totalDiscount = this.pos.lineItems
-        .map(e => e.discountAmount)
+    this.calculated.totalDiscount = this.pos.lineItems
+        .map(e => e.product.mrp * e.quantity * e.discount/100)
         .reduce((prev,next) => prev + next);
     },
     calculateAmount(item, value) {
       const index = this.pos.lineItems.indexOf(item);
       let amount = value * this.pos.lineItems[index].product.mrp;
-      let gst = amount * this.pos.lineItems[index].product.gst/100;
-      console.log(gst);
+      let tax = amount * this.pos.lineItems[index].product.gst/100;
       let discountAmount = (amount * this.pos.lineItems[index].discount) / 100;
-      this.pos.lineItems[index].amount = (amount + gst) - discountAmount;
-      this.pos.lineItems[index].amount = amount;
-      this.pos.lineItems[index].gst = gst;
-      this.pos.lineItems[index].discountAmount = discountAmount;
+      this.pos.lineItems[index].amount = (amount + tax) - discountAmount;
+
       this.netTotal();
-      this.gstTotal();
+      this.tax();
       this.grossAmount();
       this.totalDiscount();
     },
