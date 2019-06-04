@@ -94,9 +94,6 @@
                           
                             ></v-select>
                           </v-flex>
-<<<<<<< Updated upstream
-
-=======
                           <v-flex xs12 sm6 md4>
                             <v-text-field v-model="newCustomer.address.cityOrTown" label="City/Town"></v-text-field>
                           </v-flex>
@@ -112,7 +109,6 @@
                           <v-flex xs12 sm6 md4>
                             <v-text-field v-model="newCustomer.address.pincode" label="Pincode"></v-text-field>
                           </v-flex>                          
->>>>>>> Stashed changes
                         </v-layout>
                       </v-container>
                       <small>*indicates required field</small>
