@@ -5,11 +5,7 @@
         <Customer :customers="customers"/>
       </v-flex>
       <v-flex xs6>
-        <v-card>
-          <v-card-text>
-
-          </v-card-text>
-        </v-card>
+        <ProductView></ProductView>
       </v-flex>
 
           <v-card style="width:75%">
@@ -29,6 +25,7 @@
 import DataTable from "../components/DataTable";
 import ProductList from "../components/ProductList";
 import Customer from "../components/Customer";
+import ProductView from "../components/ProductView";
 import axios from "axios";
 
 export default {
@@ -36,7 +33,8 @@ export default {
   components: {
     DataTable,
     ProductList,
-    Customer
+    Customer,
+    ProductView
   },
   data() {
     return {
