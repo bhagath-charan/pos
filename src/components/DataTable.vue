@@ -14,22 +14,17 @@
       <template v-slot:items="props">
         <td>{{ props.item.product.name }}</td>
         <td>
-
-            <v-text-field  v-model="props.item.batch" ></v-text-field>
-
+            <v-text-field  v-model="props.item.product.batch" ></v-text-field>
         </td>
         <td>{{ }}</td>
 
-        <td>
-
+           <td>
               <v-text-field
                 type="number"
                 v-model="props.item.quantity"
                 :on="calculateAmount(props.item, props.item.quantity)"
               >
               </v-text-field>
-
-
         </td>
         <td>{{ props.item.product.mrp }}</td>
         <td>{{props.item.product.gst}}</td>
@@ -52,19 +47,19 @@
 <v-flex xs11>
     <v-list>
     <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">Gross Amount:{{calculated.GrossAmount}}</v-list-tile-title>
+      <v-list-tile-title class="text-lg-right">Gross Amount :{{calculated.GrossAmount}}</v-list-tile-title>
     </v-list-tile-content>
     <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">SGST:{{calculated.taxTotal/2}}</v-list-tile-title>
+      <v-list-tile-title class="text-lg-right">Discount :{{calculated.totalDiscount}}</v-list-tile-title>
     </v-list-tile-content>
     <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">CGST:{{calculated.taxTotal/2}}</v-list-tile-title>
+      <v-list-tile-title class="text-lg-right">SGST :{{calculated.taxTotal/2}}</v-list-tile-title>
     </v-list-tile-content>
     <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">Discount:{{calculated.totalDiscount}}</v-list-tile-title>
+      <v-list-tile-title class="text-lg-right">CGST :{{calculated.taxTotal/2}}</v-list-tile-title>
     </v-list-tile-content>
     <v-list-tile-content>
-      <v-list-tile-title class="text-lg-right">Total Amount :{{ pos.totalAmount }}</v-list-tile-title>
+      <v-list-tile-title class="text-lg-right">Net Payable :{{ pos.totalAmount }}</v-list-tile-title>
     </v-list-tile-content>
     <v-spacer></v-spacer>
     </v-list>
@@ -97,9 +92,9 @@ export default {
       { text: "Quantity", value: "quantity" },
       { text: "MRP", value: "mrp" },
       {text: "GST%", value:"gst" },
-      { text: "disc%", value: "discount" },
-      {text: "discAmount", value:"discountAmount" },
-      { text: "amount", value: "amount"},
+      { text: "Disc%", value: "discount" },
+      {text: "DiscAmount", value:"discountAmount" },
+      { text: "Amount", value: "amount"},
       { text: "Actions", value: "name", sortable: false }
     ],
     calculated:{
@@ -189,7 +184,7 @@ export default {
     },
     grossAmount(){
     this.calculated.GrossAmount = this.pos.lineItems
-      .map(e => e.amount)
+      .map(e => e.product.mrp * e.quantity)
       .reduce((prev,next) => prev + next);
     },
     totalDiscount(){
