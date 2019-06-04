@@ -11,14 +11,14 @@
           </v-card-text>
         </v-card>
       </v-flex>
-        <v-flex sm9 md9 lg9>
-          <v-card>
+
+          <v-card style="width:75%">
             <DataTable></DataTable>
           </v-card>
-        </v-flex>
-        <v-flex sm3 md3 lg3>
+
+        <v-card style="width:25%">
           <ProductList v-bind:productsList="products"></ProductList>
-        </v-flex>
+        </v-card>
 
 
     </v-layout>
