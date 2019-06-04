@@ -1,17 +1,16 @@
 <template>
   <v-container fluid grid-list-sm>
     <v-layout row wrap>
-      <v-flex xs12>
-        <v-card elevation="0">
-            
+      <v-flex xs6>
+        <Customer :customers="customers"/>
+      </v-flex>
+      <v-flex xs6>
+        <v-card>
           <v-card-text>
-            
-              <Customer :customers="customers"/>
-            
+
           </v-card-text>
         </v-card>
       </v-flex>
-
         <v-flex sm9 md9 lg9>
           <v-card>
             <DataTable></DataTable>
